@@ -1,0 +1,220 @@
+Integration Guide
+Balance：
+CNY
+6962.60
+
+English
+
+Communication protocol
+FAQ
+API Request URL
+Test environment
+https://api-flow-ts.billionconnect.com/Flow/saler/2.0/invoke
+Production environment
+https://api-flow.billionconnect.com/Flow/saler/2.0/invoke
+Communication protocol
+1、It is based on Restful interface, and all the requests are based on Post and need to be transmitted via http.
+2、During interaction, sales channel and billionconnect system are server and client of each other.
+3、Data of POST request is in HTTP packet, and all the parameters need to be converted as UTF-8 codes.
+4、Request and response messages are all in Json format.
+5、Messages are in signature form, and the authentication information is tampered during transmission. The formation of Http header packet is as follows.
+                
+    Content-Type：application/json;charset=UTF-8
+    x-channel-id:appKeyBillionconnect assigns a unique identifier to each sales channel application. The appKey is required and can be obtained from the [API Authorization] page
+    x-sign-method:md5 signature algorithm,Required
+    x-sign-value: 83c28c1501e2d8f25510abf60463b274 String type, used for communication encryption between external sales channel application and billionconnect system
+                
+              
+Signature Generation Rules
+Content of Post request：
+              
+  {
+    "params1":"value1",
+    "params2":"value2",
+    "params3":"value3"
+  }
+              
+            
+Computation rules for x-sign-value of Http header are as follows：
+              
+    sign =sign-method(appSecret+request content)
+    Example：md5(65f4ee66c5a019b9d0f5545b575c33c6{"params1":"value1","params2":"value2","params3":"value3"})
+    The appSecret can be obtained from the [API Authorization] page.
+              
+            
+definition of request message
+Parameters	type	Description	Required or not
+tradeType	String	Types of current interactive interfaces	Y
+tradeTime	String	Communication time stampe	Y
+tradeData	Object	specific message content, which varies with the trade type	N
+Example of request
+request http header:
+                
+  {
+    Content-Type：application/json;charset=UTF-8,
+    x-channel-id:appKey, //Billionconnect assigns a unique identifier to each sales channel application. The appKey is required and can be obtained from the [API Authorization] page.
+    x-sign-method:md5, //signature algorithm,Required
+    x-sign-value: 83c28c1501e2d8f25510abf60463b274, //sign value,Required
+  }
+                
+              
+request body:
+                
+  {
+    "tradeType": "F001", //Types of current interactive interfaces
+    "tradeTime ": "2016-03-07 11:05:24", //Communication time stampe
+    "tradeData": { //specific message content, which varies with the trade type 
+    }
+  }
+                
+              
+Notification Interface Implementation Mechanism
+To help sales channel better understand the interaction between the Billionconnect API and the sales channel API, the implementation mechanism of the notification interface is explained here. It differs from standard API calls mainly in terms of call direction and responsibility.
+1. Standard Interface (Sales Channel → Billionconnect)
+Roles：Billionconnect acts as the API provider, and the sales channel acts as the API caller.
+Function：The sales channel sends requests to Billionconnect by calling APIs defined by Billionconnect (e.g., create order, query product).
+Flow：Sales Channel System → Billionconnect
+2. Notification Interface (Billionconnect → Sales Channel)
+Roles：The sales channel system acts as the API provider (must implement the interface according to Billionconnect’s communication protocol and interface specifications), and Billionconnect acts as the API calle.
+Function：After certain business operations are completed in the Billionconnect API (e.g., successful order creation), Billionconnect will proactively call the notification interface implemented by the sales channel system to push relevant information
+Flow：Billionconnect → Sales Channel System
+Sales Channel Responsibilities：The sales channel system must develop and deploy an interface service that complies with Billionconnect’s specifications to receive notifications. The interface URL must be configured under 'Notification Callback URL' on the [API Authorization] page.
+Notification Interface Flow Diagram:
+Sales Channel System
+1. Implement the notification receiving interface (in accordance with Billionconnect API specifications)
+2. Configure the callback URL on the Billionconnect platform
+↓ ↑ (Basis for Two-Way Interaction)
+Billionconnect
+3. Business event triggered (e.g., sending eSIM QR code)
+↓ (Notification Push)
+Sales Channel System
+4. Receive Notification Data
+↓ (Response)
+Billionconnect
+5. Log Notification Result
+Key Points：
+Callback URL：Please ensure that a valid 'Notification Callback URL' is correctly configured and maintained on the [API Authorization] page. This is a prerequisite for Billionconnect to successfully push notifications to your system.
+Interface Security：The notification interface implemented by the sales channel must follow Billionconnect’s signature verification mechanism (see the 'Communication Protocol' and 'Signature Generation Rules' sections) to ensure data security and integrity. Billionconnect will generate signatures using the same rules when making requests
+Idempotency：Due to network conditions, notification messages may be sent multiple times. The sales channel must handle notifications idempotently to avoid duplicate processing. It is recommended to use a unique identifier in the notification (e.g., order number combined with event type) to determine duplication.
+Timely Response：Upon receiving a notification, the sales channel should process it promptly and return a response. Billionconnect typically defines a reasonable timeout period; if no response is received within this period, the notification may be considered failed and retried.
+We hope the above explanation helps you clearly understand how the notification interface works, and supports you in successfully completing the interface development and integration.
+Code Example
+                
+import com.alibaba.fastjson.JSONObject;
+import org.apache.commons.codec.digest.DigestUtils;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+public class ApiTest {
+
+    public static void main(String[] args) {
+        String address = "https://api-flow-ts.billionconnect.com/Flow/saler/2.0/invoke";
+        String appKey = "appKey";
+        String appSecret = "appSecret";
+
+        JSONObject body = new JSONObject();
+        body.put("tradeType","F001");
+        body.put("tradeTime",new Date());
+        JSONObject tradeData = new JSONObject();
+        tradeData.put("salesMethod","5");
+        body.put("tradeData",tradeData);
+
+        Map<String,String> headers=new HashMap<String,String>();
+        headers.put("x-channel-id", appKey);
+        headers.put("x-sign-method", "md5");
+        String plaintext = appSecret + body.toJSONString();
+        String signValue = DigestUtils.md5Hex(plaintext);
+        headers.put("x-sign-value", signValue);
+
+        try {
+            String response = httpPost(address, headers, body);
+            System.out.println("Response:" + response);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    public static String httpPost(String address,Map<String, String> headers, JSONObject body) throws IOException {
+        URL url = new URL(address);
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("POST");
+        connection.setRequestProperty("Content-Type", "application/json");
+        for (Map.Entry<String, String> en : headers.entrySet()) {
+            connection.setRequestProperty(en.getKey(), en.getValue());
+        }
+
+        connection.setDoOutput(true);
+        DataOutputStream outputStream = new DataOutputStream(connection.getOutputStream());
+        outputStream.writeBytes(body.toJSONString());
+        outputStream.flush();
+        outputStream.close();
+
+        int responseCode = connection.getResponseCode();
+        System.out.println("Response Code: " + responseCode);
+
+        BufferedReader in = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+        String inputLine;
+        StringBuffer response = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+        }
+        in.close();
+
+        return response.toString();
+
+    }
+
+}
+              
+
+API Authentication
+App Secret
+
+App Key=Hero
+App Secret=84e9186904564a868106adc01f4c0841
+
+After the App Secret reset is complete, the App Secret that calls the interface needs to be replaced within 48 hours. Otherwise the interface will not be requested normally.
+Notification Settings
+Notification Callback Url
+https://heroesim.com/wp-json/bcesim/v1/webhook
+Used for receiving callback notifications from Billion Connect.
+
+
+
+
+Q:What is the sales method?
+A:Consult the sales representative for specific details about the sales method.
+Q:What is the difference between planSkuCopies and number?
+A:number refers to the quantity — how many cards or eSIMs are being purchased in this order. planSkuCopies refers to the number of plan copies being purchased.The valid range of planSkuCopies can be queried through the F003 interface, which returns the supported copies for the product.
+Q:What is the difference between days and copies?
+A:'Days' is a basic attribute of the product. The actual usable days of the purchased plan = product days × number of copies purchased.The valid range of copies is defined by the product's pricing options, which can be obtained via the F003 interface.
+Q:What is the difference between plan copies and product copies?
+A:Plan copies refer to the number of plan units purchased by the user.Product copies refer to the number of units a product supports for sale.
+Q:How are channelOrderId and channelSubOrderId obtained?
+A:channelOrderId and channelSubOrderId represent the order numbers from the channel system and need to be automatically generated by the channel system.
+Q:Is the create order API idempotent?
+A:Yes. If order creation fails or times out, it is recommended to implement a retry mechanism with a maximum retry limit and a final failure alert mechanism.
+Q:What is the difference between single-use cards and multi-use cards?
+A:A single-use card can have only one inactive plan at a time, while a multi-use card has no such limitation.After activation, the remaining validity of a single-use card is updated to 48 hours after the plan’s end time, whereas for a multi-use card, it is updated to 6 months after the plan’s end time.
+Q:What product types should be used to create an eSIM order?
+A:Products with type 3105 or 3106 can be used to create an eSIM order via the F040 interface.
+Q:How to obtain eSIM information?
+A:N009 is a notification interface. You need to provide a callback URL from your system. Once the eSIM information is generated, we will call this callback URL to notify your system with the eSIM details.
+Q:What if the N009 notification fails—how can eSIM information be obtained?
+A:If the N009 notification fails, the system will retry up to three times. If all retries fail, you can manually check the eSIM information on the sales platform page.
+Q:How long is the typical delay for the N009 notification?
+A:Usually 2 to 10 minutes. If the order contains a large number of items, the delay may be longer.
+Q:How to obtain the SM-DP+ Address and Activation Code?
+A:The qrCodeContent field in the N009 notification contains the required data and needs to be parsed.For example: 'qrCodeContent': 'LPA:1$SECSMSMINIAPP.EASTCOMPEACE COM$2C13942911FF452AB45E9E99A5D444A1' SM-DP+ Address is the value between the first and second $ symbols:SM-DP+ Address = SECSMSMINIAPP.EASTCOMPEACE.COM Activation Code is the value after the second $:Activation Code = 2C13942911FF452AB45E9E99A5D444A1
+Q:How to check if the eSIM is installed?
+A:You can use the F042 interface to query the eSIM service status.
+Q:How long is the typical delay for the F023 daily data usage query?
+A:Usage records are usually delayed by 1 to 2 hours. However, for Japan, there is a special case where the delay can be 1 to 15 days.

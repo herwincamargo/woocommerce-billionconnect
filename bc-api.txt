@@ -1,0 +1,3489 @@
+POST
+F001-Obtaining list of countries covered
+The sales channel can obtain the list of commodities it can sell, with external sales channel application system as the calling party and the flow platform as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F001- Obtaining list of countries covered
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+salesMethod
+String	Y	Sales modes: 1- retailing; 2-OTA; 3- wholesale; 4- commission; 5- distirbution; 6- others
+language
+String	N	Language: 1- Chinese; 2- English (if not uploaded, 1 by default)
+Request Example
+Copy
+{
+  "tradeType": "F001",
+  "tradeTime": "2017-02-10 11:11:11",
+  "tradeData": {
+    "salesMethod": "1"
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+tradeData
+Array	N	Definitions are shown in the table below
+└
+continent
+String	Y	State
+└
+mcc
+String	Y	Country code
+└
+name
+String	Y	Country name
+└
+url
+String	N	Image URL
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success",
+  "tradeData": [
+    {
+      "continent": "Asia",
+      "mcc": "CN",
+      "name": "P.R. China",
+      "url": "http://p.flow.billionconnect.com/module/country/cn.png"
+    }
+  ]
+}
+
+
+POST
+F002-Obtain plans
+Plans
+The sales channel can obtain the list of plans it can sell, with external sales channel application system as the calling party and the flow platform as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F002- Obtain Plans
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+salesMethod
+String	Y	Sales modes: 1- retailing; 2-OTA; 3- wholesale; 4- commission; 5- distirbution; 6- others
+skuId
+String	N	Commodity ID
+networkOperatorScope
+String	N	Network operator scope: 1-1 level 2- all (not passed by default 1 level network operators).
+language
+String	N	Language: 1- Chinese; 2- English (if not uploaded, 1 by default)
+countryCode
+String	N	Country code
+Request Example
+Copy
+{
+  "tradeType": "F002",
+  "tradeTime": "2017-02-10 11:11:11",
+  "tradeData": {
+    "salesMethod": "1",
+    "language": "1"
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+tradeData
+Array	N	Definitions are shown in the table below
+└
+skuId
+String	Y	Commodity ID
+└
+name
+String	Y	Commodity name
+└
+type
+String	Y	Commodity type: 110- self-selected data plan; 111- fixed data plan; 210- single-time card; 211- multi-time card; 212- hard card; 220- MIFI sales; 221- MIFI leasing; 230-eSIM; 311- hard card + flow; 3101- single-time card + self-selected data plan; 3102- single-time card + fixed data plan; 3103- multi-time card + self-selected data plan; 3104- multi-time card + self-selected data plan; 3105- eSIM +self-selected data plan; 3106- eSIM + fixed data plan; 3201- MIFI sales + self-selected data plan; 3202- MIFI sales + fixed data plan; 3211- MIFI leasing + self-selected data plan; 3212- MIFI sales + fixed data plan
+└
+days
+String	N	Number of days (day)
+└
+capacity
+String	N	Data data plan size (KB)
+└
+highFlowSize
+String	N	High flow size (KB/day)
+└
+limitFlowSpeed
+String	N	Limit flow speed (kbps)
+└
+hotspotSupport
+String	N	Hotspot support: 0- support; 1- not support
+└
+country
+Array	N	Country
+└
+mcc
+String	Y	Country code
+└
+name
+String	Y	Country name
+└
+apn
+String	Y	Apn information
+└
+apnUsername
+String	N	Apn username
+└
+apnPassword
+String	N	Apn password
+└
+apnType
+String	N	Apn set type: 0-No setting required 1-No setting required
+└
+authenticationType
+String	N	Authentication type
+└
+apnTypeDesc
+String	N	Apn type
+└
+highSpeedTime
+String	N	High Speed Data Reset Time
+└
+operatorInfo
+Array	Y	Operator infor
+└
+operator
+String	Y	Network operator
+└
+network
+String	Y	Network standard
+└
+priority
+String	Y	priority
+└
+productId
+String	N	Product id
+└
+productName
+String	N	Product name
+└
+apn
+String	N	Apn information
+└
+operatorInfo
+String	N	Network operator and network type information
+└
+planType
+String	N	Plan type:0-type the total sku 1-type in a single day sku
+└
+validityPeroid
+String	N	Validity peroid
+└
+accelerationSupport
+String	N	Acceleration support:0-support 1-not support
+└
+desc
+String	Y	Commodity description
+└
+pointContactType
+String	N	Daily cut-off point type: 0-24 hour system 1-daily settlement system
+└
+timeZone
+String	N	Operator Time Zone
+└
+pointContactHours
+String	N	Daily cut-off time
+└
+usageCount
+String	N	Times of carrier can be used：1-One time use 2-Multiple use
+└
+estimatedUseTimeFlag
+String	N	EstimatedUseTime filling flag: 1- Required 2- No need to fill in
+└
+estimatedUseTimeGapHours
+String	N	EstimatedUseTime handle gap hours
+└
+applyToDevice
+String	N	Matching Carrier
+└
+applyToDeviceType
+Array	N	Applicable Device Type
+└
+rechargeableProduct
+String	N	Rechargeable product(0-no 1-indicates that the product is a rechargeable eSIM product.)
+└
+rechargeableProductSeriesId
+String	N	Rechargeable product series id
+└
+rechargeableProductSeriesName
+String	N	Rechargeable prodcut series name
+└
+provider
+String	N	Provider
+└
+refundPolicy
+String	N	Refund Policy
+└
+speedLimitRule
+String	N	Throttling Policy
+└
+carrierValidityPeroid
+String	N	Default validity peroid of the carrier
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success",
+  "tradeData": [
+    {
+      "skuId": "1090",
+      "name": "Hong Kong-4G-1 day-200M",
+      "type": "110",
+      "days": "1",
+      "capacity": "",
+      "highFlowSize": "20000",
+      "limitFlowSpeed": "128",
+      "hotspotSupport": "1",
+      "country": [
+        {
+          "mcc": "HK",
+          "name": "Hong Kong",
+          "apn": "3gnet",
+          "apnUsername": "",
+          "apnPassword": "",
+          "apnType": "0",
+          "operatorInfo": [
+            {
+              "operator": "cuhk",
+              "network": "4G",
+              "priority": "1"
+            }
+          ]
+        }
+      ],
+      "apn": "",
+      "operatorInfo": "",
+      "desc": "Hong Kong 1-day data plan, daily high flow of 200MB, flow not limited the speed is reduced by 128kbps"
+    }
+  ]
+}
+
+POST
+F003-Obtain plans price
+Plans
+The sales channel can obtain the list of plans it can sell, with external sales channel application system as the calling party and the flow platform as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F003- Obtain plans price
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+salesMethod
+String	Y	Sales modes: 1- retailing; 2-OTA; 3- wholesale; 4- commission; 5- distirbution; 6- others
+Request Example
+Copy
+{
+  "tradeType": "F003",
+  "tradeTime": "2017-02-10 11:11:11",
+  "tradeData": {
+    "salesMethod": "1"
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+tradeData
+Array	N	Definitions are shown in the table below
+└
+skuId
+String	Y	Commodity ID
+└
+price
+Array	Y	doc.f003.response.priceArrayResponse
+└
+copies
+String	Y	doc.f003.response.copiesResponse
+└
+retailPrice
+String	Y	doc.f003.response.retailPriceResponse
+└
+settlementPrice
+String	Y	doc.f003.response.settlementPriceResponse
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success",
+  "tradeData": [
+    {
+      "skuId": "1090",
+      "price": [
+        {
+          "copies": "1",
+          "retailPrice": "5",
+          "settlementPrice": "4"
+        },
+        {
+          "copies": "2",
+          "retailPrice": "9",
+          "settlementPrice": "7"
+        }
+      ]
+    }
+  ]
+}
+
+POST
+F004-Obtain self-pick-up site information
+The sales channel can obtain the self-pick-up site information, with external sales channel application system as the calling party and the flow platform as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F004- Obtain self-pick-up site information
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+Request Example
+Copy
+{
+  "tradeType": "F004",
+  "tradeTime": "2017-02-10 11:11:11",
+  "tradeData": {}
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+tradeData
+Array	N	Definitions are shown in the table below
+└
+pointId
+String	Y	Self-pick-up site ID
+└
+address
+String	Y	Address
+└
+openingHours
+String	Y	Opening hours
+└
+gpsInfo
+String	Y	GPS information
+└
+contactWay
+String	N	Contact information
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success",
+  "tradeData": [
+    {
+      "pointId": "101",
+      "address": " Area B International Departure Layer, Guangzhou Baiyun International Airport",
+      "openingHours": "7*24 hours",
+      "gpsInfo": "121.8035020000,31.1489150000",
+      "contactWay": "Tel.:18623123020"
+    }
+  ]
+}
+
+POST
+F005-Obtain logistics company information
+The sales channel obtains logistics company information, with external sales channel application system as the calling party and the flow platform as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F005- Obtain logistics company information
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+Request Example
+Copy
+{
+  "tradeType": "F005",
+  "tradeTime": "2017-02-10 11:11:11",
+  "tradeData": {}
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+tradeData
+Array	N	Definitions are shown in the table below
+└
+code
+String	Y	Logistics company code
+└
+name
+String	Y	Logistics company name
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success",
+  "tradeData": [
+    {
+      "code": "STO",
+      "name": "STO Express"
+    },
+    {
+      "code": "YTO",
+      "name": "YTO Express"
+    },
+    {
+      "code": "YUNDA",
+      "name": "Yunda Express"
+    }
+  ]
+}
+
+POST
+F006-Create card order
+SIM Card Order
+The user creates card order, with external sales channel application system as the calling party and the flow platform as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F006- Create card order
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+channelOrderId
+String	Y	Main order ID of sales channel
+express
+Object	N	Express information (choose either express or selfPickup)
+selfPickup
+Object	N	Self-pickup information (choose either express or selfPickup)
+totalAmount
+String	N	Total order amount
+discountAmount
+String	N	Discount amount
+estimatedUseTime
+String	N	Estimated use time
+orderCreateTime
+String	N	Order create time
+comment
+String	N	Remarks
+subOrderList
+Array	Y	Sub-order set
+invoiceType
+String	N	Invoice type: 0: individual; 1: company
+invoiceHead
+String	N	Invoice header
+invoiceContent
+String	N	Invoice content
+invoiceComment
+String	N	Invoice notes
+userId
+String	N	Submitter
+Request Example
+Copy
+{
+  "tradeType": "F006",
+  "tradeTime": "2017-12-12 12:12:12",
+  "tradeData": {
+    "channelOrderId": "138788765467",
+    "express": {
+      "userName": "张三",
+      "userPhone": "15801182258",
+      "logisticsCompany": "SF",
+      "feeMethod": "2",
+      "province": "北京市",
+      "city": "北京市",
+      "district": "海淀区",
+      "address": "上地信息产业基地创业路6号",
+      "expressFee": "10"
+    },
+    "totalAmount": "128",
+    "discountAmount": "1",
+    "estimatedUseTime": "2017-12-31",
+    "orderCreateTime": "2017-12-12 12:12:12",
+    "comment": "请发顺丰",
+    "subOrderList": [
+      {
+        "channelSubOrderId": "2873987483292",
+        "deviceSkuId": "1535444366670209",
+        "planSkuId": "",
+        "planSkuCopies": "1",
+        "number": "1"
+      }
+    ]
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+tradeData
+Object	N	Definitions are shown in the table below
+└
+orderId
+String	Y	Main order ID of flow platform
+└
+channelOrderId
+String	Y	Main order ID of channel
+└
+pickupCode
+String	N	Self-pick-up code
+└
+subOrderList
+Array	Y	Sub-order information
+└
+subOrderId
+String	Y	Sub-order ID of flow platform
+└
+channelSubOrderId
+String	Y	Main and sub-order ID of channel
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "Success",
+  "tradeData": {
+    "orderId": "13131313131",
+    "channelOrderId": "138788765467",
+    "pickupCode": "",
+    "subOrderList": [
+      {
+        "subOrderId": "13131313132",
+        "channelSubOrderId": "2873987483291"
+      },
+      {
+        "subOrderId": "13131313133",
+        "channelSubOrderId": "2873987483292"
+      }
+    ]
+  }
+}
+
+POST
+F007-Create top-up order
+SIM Card Order
+eSIM Order
+The user creates top-up order, with external sales channel application system as the calling party and the flow platform as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F007- Create top-up order
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+channelOrderId
+String	Y	Main order ID of sales channel
+totalAmount
+String	N	Total order amount
+discountAmount
+String	N	Discount amount
+estimatedUseTime
+String	N	Estimated use time
+orderCreateTime
+String	N	Order create time
+comment
+String	N	Remarks
+subOrderList
+Array	Y	Sub-order set
+invoiceType
+String	N	Invoice type: 0: individual; 1: company
+invoiceHead
+String	N	Invoice header
+invoiceContent
+String	N	Invoice content
+invoiceComment
+String	N	Invoice notes
+userId
+String	N	Submitter
+Request Example
+Copy
+{
+  "tradeType": "F007",
+  "tradeTime": "2017-12-12 12:12:12",
+  "tradeData": {
+    "channelOrderId": "138788765467",
+    "totalAmount": "128",
+    "orderCreateTime": "2017-12-12 12:12:12",
+    "comment": "",
+    "subOrderList": [
+      {
+        "channelSubOrderId": "2873987483291",
+        "iccid": [
+          "89860012017300000001",
+          "89860012017300000002"
+        ],
+        "skuId": "1273",
+        "copies": "5"
+      },
+      {
+        "channelSubOrderId": "2873987483292",
+        "iccid": [
+          "89860012017300000003"
+        ],
+        "skuId": "1108",
+        "copies": "1"
+      }
+    ]
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+tradeData
+Object	N	Definitions are shown in the table below
+└
+orderId
+String	Y	Main order ID of flow platform
+└
+channelOrderId
+String	Y	Main order ID of channel
+└
+subOrderList
+Array	Y	Sub-order information
+└
+subOrderId
+String	Y	Sub-order ID of flow platform
+└
+channelSubOrderId
+String	Y	Main and sub-order ID of channel
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "Success",
+  "tradeData": {
+    "orderId": "13131313131",
+    "channelOrderId": "138788765467",
+    "subOrderList": [
+      {
+        "subOrderId": "13131313132",
+        "channelSubOrderId": "2873987483291"
+      },
+      {
+        "subOrderId": "13131313133",
+        "channelSubOrderId": "2873987483292"
+      }
+    ]
+  }
+}
+
+POST
+F008-Cancel order
+The sales channel cancels orders created in flow platform, with external sales channel application system as the calling party and the flow platform as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F008- Cancel order
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+orderId
+String	Y	Main order ID of flow platform
+userId
+String	N	Submitter
+Request Example
+Copy
+{
+  "tradeType": "F008",
+  "tradeTime": "2017-12-12 12:12:12",
+  "tradeData": {
+    "orderId": "13131313131"
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success"
+}
+
+POST
+F009-Modify logistics information
+After the successful creation of card order of the sales channel, the logistics information of the order can be modified before shipment. For this interface, the external sales channel application system acts as the calling party and the flow platform acts as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F009- Modify logistics information
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+orderId
+String	Y	Main order ID of flow platform
+userName
+String	Y	Recipient name
+userPhone
+String	Y	Recipient's phone number
+logisticsCompany
+String	Y	Logistics company
+province
+String	Y	Province
+city
+String	Y	City
+district
+String	Y	District/ County
+address
+String	Y	Address
+feeMethod
+String	N	doc.f009.params.feeMethod
+expressFee
+String	N	Express fee
+comment
+String	N	Remarks
+userId
+String	N	Submitter
+Request Example
+Copy
+{
+  "tradeType": "F009",
+  "tradeTime": "2017-12-12 12:12:12",
+  "tradeData": {
+    "orderId": "13131313131",
+    "userName": "张三",
+    "userPhone": "15801182258",
+    "logisticsCompany": "SF",
+    "province": "北京市",
+    "city": "北京市",
+    "district": "海淀区",
+    "address": "上地信息产业基地创业路6号",
+    "feeMethod": "2",
+    "expressFee": "10",
+    "comment": "请尽快发货",
+    "userId": "user123"
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success"
+}
+
+POST
+F010-Query validity of card
+The sales channel can query the card validity period of the iccid through the interface; for this interface, the external sales channel application system acts as the calling party and the flow platform acts as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F010- Query validity of card
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+ICCID
+Array	Y	Card number array to be queried, card number cannot be repeated, scope 1-100
+Request Example
+Copy
+{
+  "tradeType": "F010",
+  "tradeTime": "2017-12-12 12:12:12",
+  "tradeData": {
+    "iccid": [
+      "89860012017300000001",
+      "89860012017300000002"
+    ]
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+tradeData
+Array	N	Definitions are shown in the table below
+└
+ICCID
+String	Y	Card ICCID
+└
+type
+String	Y	type：0- single-time card; 1- multi-time card; 2- hard card; 3- MIFI sales; 4- MIFI leasing;5-eSIM
+└
+status
+String	Y	Status: 0 - Open Card 1 - In Use 2 - Exhausted 3 - Failure 4 - Extension 5 - Scrap
+└
+expirationDate
+String	Y	Expiration date of validity of card
+└
+postponedMonth
+String	Y	Postponed month, One month extension in BC system means an extension of 30 days duration
+└
+maxDelayMonth
+String	Y	Maximum delay month (-1:no limit)
+└
+usageCount
+String	Y	Times of carrier can be used:1-one time use 2-multiple use
+└
+rechargeableProductSeriesId
+String	N	Rechargeable Product Series Id
+└
+rechargeableProductSeriesName
+String	N	Rechargeable Product Series Name
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success",
+  "tradeData": [
+    {
+      "iccid": "89860012017300000001",
+      "type": "0",
+      "status": "1",
+      "expirationDate": "2017-12-31 12:12:12",
+      "postponedMonth": "0",
+      "maxDelayMonth": "3",
+      "usageCount": "2"
+    },
+    {
+      "iccid": "89860012017300000002",
+      "type": "1",
+      "status": "1",
+      "expirationDate": "2017-12-31 12:12:12",
+      "postponedMonth": "0",
+      "maxDelayMonth": "-1",
+      "usageCount": "2"
+    }
+  ]
+}
+
+POST
+F011-Query order information
+Sales channel can query order-related information via this interface. For this interface, the external sales channel application system acts as the calling party and the flow platform acts as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F011- Query order information
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+channelOrderId
+String	Y	Channel Order ID
+Request Example
+Copy
+{
+  "tradeType": "F011",
+  "tradeTime": "2017-12-12 12:12:12",
+  "tradeData": {
+    "channelOrderId": "2873987483291"
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+tradeData
+Object	N	Definitions are shown in the table below
+└
+orderId
+String	Y	doc.f011.response.orderId
+└
+channelOrderId
+String	Y	Channel Order ID
+└
+orderStatus
+String	Y	Order status: 0- ordered; 1- shipped/delivered; 2- cancelled
+└
+courierNumber
+String	N	Logistics number
+└
+createTime
+String	Y	Creation time
+└
+express
+Object	N	Mailing information
+└
+userName
+String	Y	Recipient name
+└
+userPhone
+String	Y	Recipient's phone number
+└
+logisticsCompany
+String	Y	Logistics company
+└
+province
+String	Y	Province
+└
+city
+String	Y	City
+└
+district
+String	Y	District/ County
+└
+address
+String	Y	Address
+└
+expressFee
+String	N	Express fee
+└
+selfPickup
+Object	N	Self-pick-up information
+└
+userName
+String	N	Consignee name
+└
+userPhone
+String	Y	Consignee's phone number
+└
+pickupPointId
+String	N	ID of self-pick-up site
+└
+totalAmount
+String	N	Total order amount
+└
+discountAmount
+String	N	Discount Amount
+└
+estimatedUseTime
+String	N	Estimated use time
+└
+comment
+String	N	Remarks
+└
+subOrderList
+Array	Y	Sub-order set
+└
+subOrderId
+String	Y	Sub Order ID
+└
+channelSubOrderId
+String	Y	Channel Sub Order ID
+└
+deviceSkuId
+String	Y	Card commodity ID
+└
+planSkuId
+String	N	Plan commodity ID
+└
+planSkuCopies
+String	N	Copies of plan commodity
+└
+number
+String	Y	Quantity
+└
+ICCID
+Array	N	Card number
+└
+invoiceType
+String	N	Invoice type: 0: individual; 1: company
+└
+invoiceHead
+String	N	Invoice header
+└
+invoiceContent
+String	N	Invoice content
+└
+invoiceComment
+String	N	Invoice notes
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "Success",
+  "tradeData": {
+    "orderId": "13131313131",
+    "channelOrderId": "138788765467",
+    "orderStatus": "0",
+    "courierNumber": "9558213214",
+    "createTime": "2017-08-04 14:20:25",
+    "express": {
+      "userName": "Zhang San",
+      "userPhone": "18610081008",
+      "logisticsCompany": "SF",
+      "province": "Beijing",
+      "city": "Beijing",
+      "district": "Haidian District",
+      "address": "No. 6, Chuangye Road, SHANGDI Information Technology Industry Base",
+      "expressFee": "10"
+    },
+    "totalAmount": "128",
+    "discountAmount": "1",
+    "estimatedUseTime": "2017-12-31",
+    "comment": "S.F. Express pls",
+    "subOrderList": [
+      {
+        "subOrderId": "13131313132",
+        "channelSubOrderId": "2873987483291",
+        "deviceSkuId": "2001",
+        "planSkuId": "1012",
+        "planSkuCopies": "2",
+        "number": "2",
+        "iccid": [
+          "89860012017300000001",
+          "89860012017300000002"
+        ]
+      },
+      {
+        "subOrderId": "13131313133",
+        "channelSubOrderId": "2873987483292",
+        "deviceSkuId": "2001",
+        "planSkuId": "",
+        "planSkuCopies": "",
+        "iccid": [
+          "89860012017300000003"
+        ]
+      }
+    ]
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+tradeData
+Object	N	Definitions are shown in the table below
+└
+orderId
+String	Y	doc.f011.response.orderId
+└
+channelOrderId
+String	Y	Channel Order ID
+└
+orderStatus
+String	Y	Order status: 0- ordered; 1- shipped/delivered; 2- cancelled
+└
+createTime
+String	Y	Creation time
+└
+totalAmount
+String	N	Total order amount
+└
+discountAmount
+String	N	Discount Amount
+└
+estimatedUseTime
+String	N	Estimated use time
+└
+comment
+String	N	Remarks
+└
+subOrderList
+Array	Y	Sub-order set
+└
+subOrderId
+String	Y	Sub Order ID
+└
+channelSubOrderId
+String	Y	Channel Sub Order ID
+└
+ICCID
+Array	Y	Card number
+└
+skuId
+String	Y	Sku ID
+└
+copies
+String	Y	Number of plan commodity
+└
+invoiceType
+String	N	Invoice type: 0: individual; 1: company
+└
+invoiceHead
+String	N	Invoice header
+└
+invoiceContent
+String	N	Invoice content
+└
+invoiceComment
+String	N	Invoice notes
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success",
+  "tradeData": {
+    "orderId": "13131313131",
+    "channelOrderId": "138788765467",
+    "orderStatus": "2",
+    "createTime": "2017-08-04 15:20:35",
+    "totalAmount": "128",
+    "comment": "",
+    "subOrderList": [
+      {
+        "subOrderId": "13131313132",
+        "channelSubOrderId": "2873987483291",
+        "iccid": [
+          "89860012017300000001",
+          "89860012017300000002"
+        ],
+        "skuId": "1273",
+        "copies": "5"
+      },
+      {
+        "subOrderId": "13131313133",
+        "channelSubOrderId": "2873987483292",
+        "iccid": "89860012017300000003",
+        "skuId": "1108",
+        "copies": "1"
+      }
+    ]
+  }
+}
+
+POST
+F012-Query data plan usage information
+The sales channel can query the validity of this iccid card via this interface. For this interface, the external sales channel application system acts as the calling party and the flow platform acts as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F012- Query data plan usage information
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+channelOrderId
+String	N	Main order ID of channel to be queried
+iccid
+String	Y	Card number to be queried
+language
+String	N	Language: 1- Chinese; 2- English (if not uploaded, 1 by default)
+planStatus
+Array	N	Flow use status: 0- not used; 1- in use; 2- used
+Request Example
+Copy
+{
+  "tradeType": "F012",
+  "tradeTime": "2017-02-10 11:11:11",
+  "tradeData": {
+    "iccid": "1234567890123456789",
+    "language": "1"
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+tradeData
+Array	N	Definitions are shown in the table below
+└
+orderId
+String	Y	Main order ID of flow platform
+└
+channelOrderId
+String	Y	Main order ID of sales channel
+└
+subOrderList
+Array	Y	Sub-order array
+└
+subOrderId
+String	Y	Sub-order ID of flow platform
+└
+channelSubOrderId
+String	Y	Sub-order ID of sales channel
+└
+skuId
+String	Y	Commodity ID
+└
+skuName
+String	Y	Commodity name
+└
+copies
+String	Y	Number of commodities purchased
+└
+planStatus
+String	Y	Flow use status: 0- not used; 1- in use; 2- used; 3- cancelled
+└
+planStartTime
+String	N	Plan start time
+└
+planEndTime
+String	N	Plan end time
+└
+totalDays
+String	N	Total days
+└
+remainingDays
+String	N	Remaining days
+└
+totalTraffic
+String	N	Total flow, unit: KB
+└
+remainingTraffic
+String	N	Remaining flow, unit: KB
+└
+highFlowSize
+String	N	High flow size (KB/day)
+└
+apn
+String	N	apn
+└
+pointContactType
+String	N	Daily cut-off point type: 0-24 hour system 1-daily settlement system
+└
+timeZone
+String	N	Operator Time Zone
+└
+pointContactHours
+String	N	Daily cut-off time
+└
+country
+Array	N	Country
+└
+mcc
+String	Y	Country code
+└
+name
+String	Y	Country name
+└
+apn
+String	Y	apn
+└
+apnUsername
+String	N	Apn username
+└
+apnPassword
+String	N	Apn password
+└
+apnType
+String	Y	Apn type: 0 - manual setting is not required 1 - manual setting is required
+└
+authenticationType
+String	N	Authentication type
+└
+apnTypeDesc
+String	N	Apn type
+└
+limitFlowSpeed
+String	N	Limit flow speed (kbps)
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "Success",
+  "tradeData": [
+    {
+      "orderId": "13131313131",
+      "channelOrderId": "138788765467",
+      "subOrderList": [
+        {
+          "subOrderId": "13131313132",
+          "channelSubOrderId": "2873987483291",
+          "skuId": "1273",
+          "planType": "0",
+          "skuName": "Australia-4G-Optional-300MB",
+          "copies": "5",
+          "planStatus": "2",
+          "planStartTime": "2018-03-04 09:20:35",
+          "planEndTime": "2018-03-09 09:20:35",
+          "totalDays": "5",
+          "country": [
+            {
+              "mcc": "AU",
+              "name": "Australia",
+              "apn": "emov",
+              "apnType": "0"
+            }
+          ],
+          "highFlowSize": "307200",
+          "apn": "emov",
+          "remainingDays": "0"
+        }
+      ]
+    }
+  ]
+}
+
+POST
+F013-Validate add package iccids
+The sales channel can verify whether iccid can recharge through this interface, the external sales channel application system acts as the calling party and the flow platform acts as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F013- Validate add package iccids
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+iccid
+Array	Y	Card number array to be queried, card number cannot be repeated, scope 1-100
+Request Example
+Copy
+{
+  "tradeType": "F013",
+  "tradeTime": "2017-02-10 11:11:11",
+  "tradeData": {
+    "iccid": [
+      "1234567890123456789",
+      "1234567890123456790"
+    ]
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+int	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success",
+  "tradeData": [
+    {
+      "iccid": "89860012017300000001",
+      "result": "success"
+    },
+    {
+      "iccid": "89860012017300000002",
+      "result": "failed"
+    }
+  ]
+}
+
+POST
+F014-Query sale account balance
+The sales channel can query the pre deposit account balance of its own channel through this interface., the external sales channel application system acts as the calling party and the flow platform acts as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F014- Query sale account balance
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+Request Example
+Copy
+{
+  "tradeType": "F014",
+  "tradeTime": "2017-12-12 12:12:12",
+  "tradeData": {}
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+tradeData
+Object	N	Definitions of tradeData content
+└
+saleBalance
+String	Y	The account balance
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "Success",
+  "tradeData": {
+    "accountBalance": "10000.00",
+    "currency": "USD",
+    "availableBalance": "8500.00",
+    "frozenBalance": "1500.00",
+    "creditLimit": "50000.00"
+  }
+}
+
+POST
+F015-Query acceleration package commodities
+Plans
+The sales channel can query the acceleration package commodities through this interface., the external sales channel application system acts as the calling party and the flow platform acts as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F015- Query acceleration package commodities
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+orderId
+String	Y	Main order ID of flow platform
+iccid
+String	Y	Card number
+dayType
+String	Y	Plan type: 0-one 1-mult 2-data type
+language
+String	N	Language: 1- Chinese; 2- English (if not uploaded, 1 by default)
+Request Example
+Copy
+{
+  "tradeType": "F015",
+  "tradeTime": "2017-12-12 12:12:12",
+  "tradeData": [
+    {
+      "orderId": "13131313131",
+      "iccid": "89860012017300000001",
+      "dayType": "0",
+      "language": "1"
+    }
+  ]
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+tradeData
+Array	N	Definitions are shown in the table below
+└
+orderId
+String	Y	Main order ID of flow platform
+└
+iccid
+String	Y	Card number
+└
+pointContactType
+String	Y	Point contact type: 1-24 hours 2- natural day
+└
+serviceZone
+String	Y	Service time zone
+└
+pointOfContact
+String	Y	Point of contact
+└
+accelerationSku
+Array	Y	Acceleration package commodities
+└
+accelerationSkuList
+Array	Y	Acceleration package commodities list
+└
+skuId
+String	Y	Commodity ID
+└
+settlementPrice
+String	Y	Settlement price
+└
+pointContactType
+String	Y	Point contact type: 1-24 hours 2- natural day
+└
+serviceZone
+String	Y	Service time zone
+└
+pointOfContact
+String	Y	Point of contact
+└
+name
+String	Y	Commodity name
+└
+days
+String	N	Number of days (day)
+└
+planType
+String	N	Plan type:0-type the total sku 1-type in a single day sku
+└
+capacity
+String	N	Data data plan size (KB)
+└
+highFlowSize
+String	N	High flow size (KB/day)
+└
+limitFlowSpeed
+String	N	Limit flow speed (kbps)
+└
+hotspotSupport
+String	N	Hotspot support: 0- not support; 1- support
+└
+desc
+String	Y	Commodity description
+└
+country
+Array	Y	Country
+└
+mcc
+String	Y	Country code
+└
+name
+String	Y	Country name
+└
+apn
+String	Y	Apn information
+└
+apnUsername
+String	N	Apn username
+└
+apnPassword
+String	N	Apn password
+└
+apnType
+String	N	Apn set type: 0-No setting required 1-Setting required
+└
+authenticationType
+String	N	Authentication type
+└
+apnTypeDesc
+String	N	Apn type
+└
+highSpeedTime
+String	N	High speed data reset time
+└
+operatorInfo
+Array	Y	Operator information
+└
+operator
+String	Y	Network operator
+└
+network
+String	Y	Network standard
+└
+priority
+String	Y	Priority
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success",
+  "tradeData": [
+    {
+      "orderId": "13131313131",
+      "iccid": "89860012017300000001",
+      "skuId": "1273",
+      "accelerationSku": [
+        "1274"
+      ],
+      "accelerationSkuList": [
+        {
+          "skuId": "1274",
+          "settlementPrice": "11",
+          "name": "Hong Kong-4G-1 day-200M",
+          "pointContactType": "1",
+          "serviceZone": "UTC+8",
+          "pointOfContact": "2022-12-02 00:00:00",
+          "days": "1",
+          "capacity": "",
+          "highFlowSize": "20000",
+          "limitFlowSpeed": "128",
+          "hotspotSupport": "1",
+          "country": [
+            {
+              "mcc": "HK",
+              "name": "Hong Kong"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+
+POST
+F016-Create acceleration package order
+The sales channel can create a acceleration package order through this interface., the external sales channel application system acts as the calling party and the flow platform acts as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F016-Create acceleration package order
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+originalOrderId
+String	Y	Original Order ID
+originalSaleGoodsId
+String	Y	Original Commodity ID
+channelOrderId
+String	Y	Main order Id of sales channel
+totalAmount
+String	N	Total order amount
+discountAmount
+String	N	Discount amount
+estimatedUseTime
+String	N	Estimated use time
+comment
+String	N	Remarks
+dayType
+String	Y	Plan type: 0-one 1-mult 2-data type
+subOrderList
+Array	Y	Sub-order set
+└
+channelSubOrderId
+String	Y	Sub-order ID of sales channel
+└
+iccid
+String	Y	Recharge card number
+└
+skuId
+String	Y	Plan commodity ID
+└
+copies
+String	Y	Number of plan commodity
+└
+settlementPrice
+String	Y	Settlement price
+Request Example
+Copy
+{
+  "tradeType": "F016",
+  "tradeTime": "2017-12-12 12:12:12",
+  "tradeData": {
+    "originalOrderId": "13131313131",
+    "originalSaleGoodsId": "4334313123",
+    "channelOrderId": "138788765467",
+    "totalAmount": "128",
+    "discountAmount": "0",
+    "estimatedUseTime": "2017-12-12 12:12:12",
+    "comment": "",
+    "dayType": "0",
+    "subOrderList": [
+      {
+        "channelSubOrderId": "2873987483291",
+        "iccid": "89860012017300000001",
+        "skuId": "1273",
+        "copies": "5",
+        "settlementPrice": "25.6"
+      }
+    ]
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+tradeData
+Object	N	Definitions of tradeData content
+└
+orderId
+String	Y	Main order ID of flow platform
+└
+channelOrderId
+String	Y	Main order ID of channel
+└
+subOrderList
+Array	Y	Sub-order information
+└
+subOrderId
+String	Y	Sub-order ID of flow platform
+└
+channelSubOrderId
+String	Y	Main and sub-order ID of channel
+└
+isActivated
+String	Y	Activation status: 0-not activated 1-activated
+└
+startTime
+String	Y	Plan start time
+└
+countryRegion
+String	N	Country
+└
+apn
+String	N	apn
+└
+apnUsername
+String	N	apnUsername
+└
+apnPassword
+String	N	apnPassword
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success",
+  "tradeData": {
+    "orderId": "13131313131",
+    "channelOrderId": "138788765467",
+    "subOrderList": [
+      {
+        "subOrderId": "13131313132",
+        "channelSubOrderId": "2873987483291",
+        "isActivated": "1",
+        "startTime": "2018-08-07 12:12:12",
+        "countryRegion": "HK",
+        "apn": "emov",
+        "apnUsername": "",
+        "apnPassword": ""
+      }
+    ]
+  }
+}
+
+POST
+F017-Apply after sale
+The sales channel can obtain the list of commodities it can sell, with external sales channel application system as the calling party , And the sales channel submit the after sale apply
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F017- Apply after sale
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+channelOrderId
+String	Y	the channel order id
+channelSubOrderId
+String	Y	the subOrderId of the channel
+reason
+String	Y	the reason of the after sale(please write in the after sale resaon number)
+iccid
+Array	Y	card numbers
+unSubscribeFlow
+String	N	return flow or not: 0.don`t return,1.return
+receivingState
+String	N	receivingState:0.have not received,1.had received
+returnCardOrNot
+String	N	Return card or not(the order should be incloud card and the receivingState should be 1): 0: don`t need to return, 2. need to return
+logisticsNoPerson
+String	N	the name of the addresser: 0.client, 1.warehouse operator
+logisticsId
+String	N	tracking number
+refundType
+String	Y	refund way: 0.automatic refund, 1. agreement refunds
+refundAmount
+String	N	refund amount
+comment
+String	N	comment
+Request Example
+Copy
+{
+  "tradeType": "F017",
+  "tradeTime": "2017-12-12 12:12:12",
+  "tradeData": {
+    "channelOrderId": "2873987483291",
+    "channelSubOrderId": "3073987483291",
+    "reason": "20",
+    "iccid": [
+      "123",
+      "123"
+    ],
+    "unSubscribeFlow": "0",
+    "receivingState": "1",
+    "returnCardOrNot": "1",
+    "logisticsNoPerson": "1",
+    "logisticsId": "1111111111111",
+    "refundType": "1",
+    "refundAmount": "48.00",
+    "comment": ""
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+tradeData
+Object	N	Definitions of tradeData content
+└
+afterSaleId
+String	Y	after sale id
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "Success",
+  "tradeData": {
+    "afterSaleId": "1517370598118598"
+  }
+}
+
+POST
+F018-Close after sale
+The sales channel can obtain the list of commodities it can sell, with external sales channel application system as the calling party , And the sale channel can cancel the after sale apply
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F018-cancel after sale
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions of tradeData content
+afterSaleId
+String	Y	after sale id
+Request Example
+Copy
+{
+  "tradeType": "F018",
+  "tradeTime": "2017-12-12 12:12:12",
+  "tradeData": {
+    "afterSaleId": "1517370598118598"
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "Success"
+}
+
+POST
+F019-Modify after sale
+The sales channel can obtain the list of commodities it can sell, with external sales channel application system as the calling party , And the sales channel can change the after sale apply
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F019- modify after sale
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+afterSaleId
+String	Y	the id of the after sale
+unSubscribeFlow
+String	N	return flow or not: 0.don`t return,1.return
+receivingState
+String	N	receivingState:0.have not received,1.had received
+returnCardOrNot
+String	N	Return card or not(the order should be incloud card and the receivingState should be 1): 0: don`t need to return, 2. need to return
+logisticsNoPerson
+String	N	the name of the addresser:0.client, 1.warehouse operator
+logisticsId
+String	N	tracking number
+refundType
+String	Y	refund way: 0.automatic refund, 1. agreement refunds
+refundAmount
+String	N	refund amount
+comment
+String	N	comment
+Request Example
+Copy
+{
+  "tradeType": "F019",
+  "tradeTime": "2017-12-12 12:12:12",
+  "tradeData": {
+    "afterSaleId": "2873987483291",
+    "unSubscribeFlow": "1",
+    "receivingState": "1",
+    "returnCardOrNot": "1",
+    "logisticsNoPerson": "1",
+    "logisticsId": "1111111111111",
+    "refundType": "1",
+    "refundAmount": "48.00",
+    "comment": ""
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "Success"
+}
+
+POST
+F020-Query after sale information
+The flow platform sends order delivery notice to the sale channel, with flow platform as the calling party And the sale channel can query the after sale message by some qualifications
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F020- query after sale
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+afterSaleId
+String	Y	after sale id
+Request Example
+Copy
+{
+  "tradeType": "F020",
+  "tradeTime": "2017-12-12 12:12:12",
+  "tradeData": {
+    "afterSaleId": "1517370598118598"
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+tradeData
+Object	Y	Definitions of tradeData content
+└
+channelOrderId
+String	Y	Main order ID of sales channel
+└
+channelSubOrderId
+String	N	Sub-order ID of sales channel
+└
+afterSaleId
+String	Y	after sale id
+└
+ICCID
+Array	Y	card numbers
+└
+reason
+String	Y	the reason of the after sale(please write in the after sale resaon number)
+└
+refundType
+String	Y	refund way:0. automatic refund, 1. agreement refunds
+└
+refundAmount
+String	Y	refund amount
+└
+unSubscribeFlow
+String	N	return flow or not: 0.don`t return,1.return
+└
+returnDays
+String	N	return days
+└
+receivingState
+String	N	receivingState:0.have not received,1.had received
+└
+returnCard
+String	N	return card or not(just when the order was include card order and the receivingState was 1) : 0.don`t need, 1.need to return card
+└
+logisticsNoPerson
+String	N	the name of the addresser: 0.client, 1.warehouse operator
+└
+logisticsId
+String	N	tracking number
+└
+auditStatus
+String	Y	audit status:0：not audit，1：has withdraw 2：audit pass 3：rejected 4：need modify
+└
+auditOpinion
+String	N	audit opinion
+└
+refundStatus
+String	Y	refund status 0、waiting refund，1、refunded，2、rejected
+└
+refundOpinion
+String	N	refund opinion
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "Success",
+  "tradeData": {
+    "channelOrderId": "1517370598118598",
+    "channelSubOrderId": "1517370598118598",
+    "afterSaleId": "1517370598118598",
+    "iccid": [
+      "89860012011111111111"
+    ],
+    "reason": "14",
+    "refundType": "1",
+    "refundAmount": "123.00",
+    "unSubscribeFlow": "1",
+    "returnDays": "1",
+    "receivingState": "1",
+    "returnCard": "1",
+    "logisticsNoPerson": "1",
+    "logisticsId": "11111111111",
+    "auditStatus": "1",
+    "auditOpinion": "XXXXXXX",
+    "refundStatus": "1",
+    "refundOpinion": "XXXXXXX"
+  }
+}
+
+POST
+F023-Daily flow query
+The sales channel can query the daily flow of the card through the interface, the external sales channel application system acts as the calling party and the flow platform acts as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F023- Daily flow query
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+iccid
+String	Y	Card number
+beginDate
+String	Y	Begin date
+endDate
+String	Y	End date
+tzType
+String	N	timezone,default 1
+language
+String	N	Language: 1- Chinese; 2- English (if not uploaded, 1 by default)
+Request Example
+Copy
+{
+  "tradeType": "F023",
+  "tradeTime": "2018-09-10 12:12:12",
+  "tradeData": {
+    "iccid": "89860012017300000001",
+    "beginDate": "2018-10-01",
+    "endDate": "2018-10-01",
+    "tzType": "1",
+    "language": "1"
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+int	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+tradeData
+Array	N	Definitions are shown in the table below
+└
+usedDate
+String	Y	Used date
+└
+type
+String	Y	Business type: 0-Data 1-SMS 2-USSD 3-LU
+└
+usedAmount
+String	Y	Amount of use (busiType = 0, unit: KB; other units: bar)
+└
+country
+String	Y	Country
+└
+countryRegionCode
+String	Y	Country region code
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success",
+  "tradeData": [
+    {
+      "usedDate": "20181001",
+      "type": "0",
+      "usedAmount": "250770",
+      "country": "Hong Kong (People's Republic of China)",
+      "countryRegionCode": "HK"
+    }
+  ]
+}
+
+POST
+F040-Create ESIM order
+eSIM Order
+The user creates ESIM order, with external sales channel application system as the calling party and the flow platform as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F040- Create ESIM order
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+channelOrderId
+String	Y	Main order ID of sales channel
+email
+String	N	Email
+totalAmount
+String	N	Total order amount
+discountAmount
+String	N	Discount amount
+estimatedUseTime
+String	N	Estimated use time
+orderCreateTime
+String	N	Order create time
+comment
+String	N	Remarks
+subOrderList
+Array	Y	Sub-order set
+└
+channelSubOrderId
+String	Y	Sub-order ID of sales channel
+└
+deviceSkuId
+String	Y	ESIM commodity ID
+└
+deviceSkuPrice
+String	N	Card commodity price
+└
+planSkuCopies
+String	Y	Number of plan commodity
+└
+number
+String	Y	Purchase quantity, scope: 1-500
+└
+discountAmount
+String	N	Discount amount
+└
+rechargeableESIM
+String	N	Rechargeable eSIM(0-no 1-yes)
+invoiceType
+String	N	Invoice type: 0: individual; 1: company
+invoiceHead
+String	N	Invoice header
+invoiceContent
+String	N	Invoice content
+invoiceComment
+String	N	Invoice notes
+userId
+String	N	Submitter
+eid
+String	N	EID
+imei
+String	N	IMEI 2
+Request Example
+Copy
+{
+  "tradeType": "F040",
+  "tradeTime": "2020-02-25 15:02:21",
+  "tradeData": {
+    "channelOrderId": "138788765467",
+    "email": "abc@qq.com",
+    "totalAmount": "128",
+    "discountAmount": "1",
+    "subOrderList": [
+      {
+        "channelSubOrderId": "2873987483292",
+        "deviceSkuId": "1535444366670209",
+        "planSkuCopies": "1",
+        "number": "1"
+      }
+    ]
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+tradeData
+Object	N	Definitions are shown in the table below
+└
+orderId
+String	Y	Main order ID of flow platform
+└
+channelOrderId
+String	Y	doc.f040.response.channelOrderIdResponse
+└
+subOrderList
+Array	Y	doc.f040.response.subOrderListResponse
+└
+subOrderId
+String	Y	Sub-order ID of flow platform
+└
+channelSubOrderId
+String	Y	doc.f040.response.channelSubOrderIdResponse
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "Success",
+  "tradeData": {
+    "orderId": "13131313131",
+    "channelOrderId": "138788765467",
+    "subOrderList": [
+      {
+        "subOrderId": "13131313132",
+        "channelSubOrderId": "2873987483291"
+      }
+    ]
+  }
+}
+
+POST
+F041-Re_send ESIM Email
+The user resend ESIM email, with external sales channel application system as the calling party and the flow platform as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F041-Re_send ESIM Email
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+orderId
+String	Y	Main order ID of flow platform
+email
+String	Y	Email
+Request Example
+Copy
+{
+  "tradeType": "F041",
+  "tradeTime": "2020-02-25 16:05:29",
+  "tradeData": {
+    "orderId": "15801188888",
+    "email": "abc@qq.com"
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success"
+}
+
+POST
+F042-Query ESIM Profile Status
+The user query esim profile status, with external sales channel application system as the calling party and the flow platform as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F042-Query ESIM Profile Status
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+iccid
+String	Y	Card number to be queried
+Request Example
+Copy
+{
+  "tradeType": "F042",
+  "tradeTime": "2022-12-07 15:34:16",
+  "tradeData": {
+    "iccid": "89860012016820003006"
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+tradeData
+Array	N	Definitions are shown in the table below
+└
+orderId
+String	Y	Main order ID of flow platform
+└
+iccid
+String	Y	Iccid
+└
+status
+String	Y	Status：0-not downloaded 1-downloaded 2-installed 3-enabled 4-disabled 5-recycled
+└
+recordTime
+String	Y	Record time
+└
+eid
+String	N	Return the specific eid value for the installed eSIM
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success",
+  "tradeData": [
+    {
+      "status": "5",
+      "iccid": "89860012016820003006",
+      "recordTime": "2022-11-24 10:32:47",
+      "orderId": "3669195566166268",
+      "eid": "89086030202200000020000002270960"
+    },
+    {
+      "status": "4",
+      "iccid": "89860012016820003006",
+      "recordTime": "2022-11-24 10:32:38",
+      "orderId": "3669195566166268",
+      "eid": "89086030202200000020000002270960"
+    },
+    {
+      "status": "3",
+      "iccid": "89860012016820003006",
+      "recordTime": "2022-11-23 17:28:45",
+      "orderId": "3669195566166268",
+      "eid": "89086030202200000020000002270960"
+    },
+    {
+      "status": "2",
+      "iccid": "89860012016820003006",
+      "recordTime": "2022-11-23 17:27:04",
+      "orderId": "3669195566166268",
+      "eid": "89086030202200000020000002270960"
+    },
+    {
+      "status": "1",
+      "iccid": "89860012016820003006",
+      "recordTime": "2022-11-23 17:26:19",
+      "orderId": "3669195566166268",
+      "eid": ""
+    },
+    {
+      "status": "0",
+      "iccid": "89860012016820003006",
+      "recordTime": "2022-11-23 17:26:31",
+      "orderId": "3669195566166268",
+      "eid": ""
+    }
+  ]
+}
+
+POST
+F045-Terminate active plan
+The sales channel can terminate active plan through this interface., the external sales channel application system acts as the calling party and the flow platform acts as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F045- Terminate active plan
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+orderId
+String	Y	Main order ID of flow platform
+subOrderId
+String	Y	Sub-order ID of flow platform
+iccid
+String	Y	Card number
+Request Example
+Copy
+{
+  "tradeType": "F045",
+  "tradeTime": "2023-05-05 09:47:39",
+  "tradeData": {
+    "orderId": "2683536856139402",
+    "subOrderId": "1683536856470403",
+    "iccid": "89860012018390075038"
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success"
+}
+
+POST
+F046-Query data plan usage information
+The sales channel can query the usage information through this interface. For this interface, the external sales channel application system acts as the calling party and the flow platform acts as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F046- Query data plan usage information
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+orderId
+String	N	Main order ID of flow platform，At least one of the orderId or channelOrderId must be passed
+channelOrderId
+String	N	Main order ID of channel to be queried，At least one of the orderId or channelOrderId must be passed
+iccid
+String	Y	Card number to be queried
+language
+String	N	Language: 1- Chinese; 2- English (if not uploaded, 1 by default)
+Request Example
+Copy
+{
+  "tradeType": "F046",
+  "tradeTime": "2023-05-30 15:53:32",
+  "tradeData": {
+    "orderId": "2684910712887645",
+    "channelOrderId": "71186072946800",
+    "iccid": "89860012018880000641",
+    "language": "2"
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+tradeData
+Object	N	Definitions are shown in the table below
+└
+orderId
+String	Y	Order ID
+└
+channelOrderId
+String	Y	Channel Order ID
+└
+subOrderList
+Array	Y	Sub Orders List
+└
+subOrderId
+String	Y	Sub Order ID
+└
+channelSubOrderId
+String	Y	Channel Sub Order ID
+└
+skuId
+String	Y	Sku ID
+└
+skuName
+String	Y	Commodity name
+└
+copies
+String	Y	Copies
+└
+planStatus
+String	Y	Flow use status: 0- not used; 1- in use; 2- used; 3- cancelled
+└
+planStartTime
+String	N	Plan start time
+└
+planEndTime
+String	N	Plan end time
+└
+totalDays
+String	N	Total Days
+└
+totalTraffic
+String	N	Total flow, unit: KB
+└
+usageInfoList
+Array	N	Usage info
+└
+useDate
+String	Y	Used time
+└
+useageAmt
+String	Y	Used data traffic,unit:KB
+└
+highFlowSize
+String	N	High Flow Size
+└
+planType
+String	N	Plan Type
+└
+country
+Array	N	Country
+└
+mcc
+String	Y	Country Mcc
+└
+name
+String	Y	Country Name
+└
+apn
+String	Y	Country Apn
+└
+apnUsername
+String	N	Apn Username
+└
+apnPassword
+String	N	Apn Password
+└
+apnType
+String	Y	Apn type: 0 - manual setting is not required 1 - manual setting is required
+└
+authenticationType
+String	N	Authentication Type
+└
+apnTypeDesc
+String	N	Apn type
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success",
+  "tradeData": {
+    "orderId": "2684910712887645",
+    "channelOrderId": "71186072946800",
+    "subOrderList": [
+      {
+        "subOrderId": "1684910712888646",
+        "channelSubOrderId": "21186072505668",
+        "skuId": "1683599122978282",
+        "skuName": "Japan-4G-300MB/day+tonguxnzaiti",
+        "copies": "2",
+        "planStatus": "2",
+        "planStartTime": "2023-05-24 14:59:36",
+        "planEndTime": "2023-05-26 14:59:37",
+        "totalDays": "2",
+        "totalTraffic": "-1",
+        "highFlowSize": "307200",
+        "planType": "1",
+        "country": [
+          {
+            "mcc": "JP",
+            "name": "Japan",
+            "apn": "3gnet",
+            "apnUsername": "test",
+            "apnPassword": "test",
+            "apnType": "1"
+          }
+        ],
+        "usageInfoList": [
+          {
+            "useDate": "20230524",
+            "useageAmt": "10240"
+          },
+          {
+            "useDate": "20230525",
+            "useageAmt": "20480"
+          },
+          {
+            "useDate": "20230526",
+            "useageAmt": "30760"
+          }
+        ]
+      }
+    ]
+  }
+}
+
+POST
+F051-Query self pickup information by sku
+The sales channel can query self pickup information, with external sales channel application system as the calling party and the flow platform as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F051- Query self pickup information by sku
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+skuIds
+Array	Y	Commodity ID
+Request Example
+Copy
+{
+  "tradeType": "F051",
+  "tradeTime": "2024-02-08 16:17:30",
+  "tradeData": {
+    "skuIds": [
+      "132342909036",
+      "132346328450"
+    ]
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+tradeData
+Array	N	Definitions are shown in the table below
+└
+pointId
+String	Y	Self-pick-up site ID
+└
+address
+String	Y	Address
+└
+openingHours
+String	Y	Opening hours
+└
+gpsInfo
+String	Y	GPS information
+└
+contactWay
+String	Y	Contact information
+└
+price
+BigDecimal	Y	Self pickup point price
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success",
+  "tradeData": [
+    {
+      "pointId": "101",
+      "address": "Area B International Departure Layer, Guangzhou Baiyun International Airport",
+      "openingHours": "7*24 hours",
+      "gpsInfo": "121.8035020000,31.1489150000",
+      "contactWay": "Tel.:18623123020"
+    }
+  ]
+}
+
+POST
+F052-Query eSIM recharge commodities
+Plans
+The sales channel can query eSIM recharge commodities, with external sales channel application system as the calling party and the flow platform as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F052- Query eSIM recharge commodities
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+iccid
+String	Y	Card number to be queried
+Request Example
+Copy
+{
+  "tradeType": "F052",
+  "tradeTime": "2024-08-14 15:33:24",
+  "tradeData": {
+    "iccid": "89812003916820397415"
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+tradeData
+Array	N	Definitions are shown in the table below
+└
+skuId
+Array	Y	Commodity ID
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success",
+  "tradeData": {
+    "skuId": [
+      "132342909036",
+      "132346328450"
+    ]
+  }
+}
+
+POST
+F054-Query realname authentication status
+The sales channel can query realname authentication status, with external sales channel application system as the calling party and the flow platform as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F054- Query realname authentication status
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+iccid
+String	Y	Card number to be queried
+Request Example
+Copy
+{
+  "tradeType": "F054",
+  "tradeTime": "2024-11-11 12:01:54",
+  "tradeData": {
+    "iccid": "89812003916820397415"
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+tradeData
+Array	N	Definitions are shown in the table below
+└
+status
+Integer	Y	Authentication status：1-Pending Verification 2-In Verification 3-Verification Approved 4-Verification Failed 5-Document Expired
+└
+expiryTime
+String	N	Authentication expiration date
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success",
+  "tradeData": {
+    "status": 1
+  }
+}
+
+POST
+F056-Query all acceleration package commodities
+Plans
+The sales channel can query all acceleration package commodities, with external sales channel application system as the calling party and the flow platform as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	F056- Query all acceleration package commodities
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+skuId
+String	N	Commodity ID
+networkOperatorScope
+String	N	Network operator scope: 1-1 level 2-all (not passed by default 1 level network operators)
+language
+String	N	Language: 1- Chinese; 2- English (if not uploaded, 1 by default)
+countryCode
+String	N	Country code
+Request Example
+Copy
+{
+  "tradeType": "F056",
+  "tradeTime": "2017-02-10 11:11:11",
+  "tradeData": {
+    "skuId": "1274"
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+tradeData
+Array	N	Definitions are shown in the table below
+└
+skuId
+String	Y	Commodity ID
+└
+name
+String	Y	Commodity name
+└
+days
+String	N	Number of days (day)
+└
+capacity
+String	N	Data data plan size (KB)
+└
+highFlowSize
+String	N	High flow size (KB/day)
+└
+limitFlowSpeed
+String	N	Limit flow speed (kbps)
+└
+hotspotSupport
+String	N	Hotspot support: 0- not support; 1- support
+└
+country
+Array	N	Country
+└
+mcc
+String	Y	Country code
+└
+name
+String	Y	Country name
+└
+apn
+String	Y	Apn information
+└
+apnUsername
+String	N	Apn username
+└
+apnPassword
+String	N	Apn password
+└
+apnType
+String	N	Apn set type: 0-No setting required 1-No setting required
+└
+authenticationType
+String	N	Authentication type
+└
+apnTypeDesc
+String	N	Apn type
+└
+highSpeedTime
+String	N	High speed data reset time
+└
+operatorInfo
+Array	Y	Operator infor
+└
+operator
+String	Y	Network operator
+└
+network
+String	Y	Network standard
+└
+priority
+String	Y	priority
+└
+planType
+String	N	Plan type:0-type the total sku 1-type in a single day sku
+└
+accelerationSupport
+String	N	Acceleration support:0-not support 1-support SIM 2-support eSIM 3-support all
+└
+pointContactType
+String	N	Daily cut-off point type: 0-24 hour system 1-daily settlement system
+└
+timeZone
+String	N	Operator Time Zone
+└
+pointContactHours
+String	N	Daily cut-off time
+└
+acceleratePrice
+String	N	Accelerate price
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success",
+  "tradeData": [
+    {
+      "skuId": "1274",
+      "settlementPrice": "11",
+      "name": "Hong Kong-4G-1 day-200M",
+      "pointContactType": "1",
+      "serviceZone": "UTC+8",
+      "pointOfContact": "2022-12-02 00:00:00",
+      "days": "1",
+      "capacity": "",
+      "highFlowSize": "20000",
+      "limitFlowSpeed": "128",
+      "hotspotSupport": "1",
+      "country": [
+        {
+          "mcc": "HK",
+          "name": "Hong Kong"
+        }
+      ]
+    }
+  ]
+}
+
+POST
+N001-Order delivery notice
+The flow platform sends order delivery notice to the sale channel, with flow platform as the calling party and external sales channel application system as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	N001- Order delivery notice
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+orderId
+String	Y	Main order ID of flow platform
+channelOrderId
+String	Y	Main order ID of sales channel
+courierNumber
+String	N	Logistics number
+logisticsCompany
+String	N	Logistics company
+pickupCode
+String	N	Pick-up code
+pointIdList
+Array	N	Self-pick-up site array
+pickupPdfUrl
+String	N	Pick-up PDF URL
+subOrderList
+Array	Y	Sub-order array
+└
+subOrderId
+String	Y	Sub-order ID of flow platform
+└
+channelSubOrderId
+String	Y	Sub-order ID of sales channel
+└
+iccid
+Array	Y	Card number array
+Request Example
+Copy
+{
+  "tradeType": "N001",
+  "tradeTime": "2020-02-25 16:56:37",
+  "tradeData": {
+    "orderId": "13131313131",
+    "channelOrderId": "138788765467",
+    "courierNumber": "SF1234567890",
+    "logisticsCompany": "SF Express",
+    "pickupCode": "A123",
+    "pointIdList": [
+      "point001",
+      "point002"
+    ],
+    "pickupPdfUrl": "https://example.com/pickup.pdf",
+    "subOrderList": [
+      {
+        "subOrderId": "SUB001",
+        "channelSubOrderId": "CHSUB001",
+        "iccid": [
+          "89441111111111111111",
+          "89441111111111111112"
+        ]
+      }
+    ]
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success"
+}
+
+POST
+N002-Plan use start notice
+The flow platform sends the Plan use start notice to the sales channel, with flow platform as the calling party and external sales channel application system as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	N002-Plan use start notice
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+subOrderId
+String	Y	Traffic platform sub-order number
+channelSubOrderId
+String	Y	Sales channel sub-order number
+iccid
+String	Y	Card number
+startTime
+String	Y	Start use time
+endTime
+String	Y	Use end time
+countryRegion
+String	N	Country and region
+apn
+String	N	apn
+apnUsername
+String	N	apnUsername
+apnPassword
+String	N	apnPassword
+Request Example
+Copy
+{
+  "tradeType": "N002",
+  "tradeTime": "2017-02-10 11:11:11",
+  "tradeData": [
+    {
+      "subOrderId": "13131313132",
+      "channelSubOrderId": "2873987483291",
+      "iccid": "89860012017310000001",
+      "startTime": "2018-04-08 12:12:12",
+      "endTime": "2018-04-10 12:12:12",
+      "countryRegion": "JP",
+      "apn": "emov",
+      "apnUsername": "",
+      "apnPassword": ""
+    },
+    {
+      "subOrderId": "13131313133",
+      "channelSubOrderId": "2873987483292",
+      "iccid": "89860012017310000003",
+      "startTime": "2018-04-08 12:12:12",
+      "endTime": "2018-04-10 12:12:12",
+      "countryRegion": "JP",
+      "apn": "emov",
+      "apnUsername": "",
+      "apnPassword": ""
+    }
+  ]
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success"
+}
+
+POST
+N003-Plan use end notice
+The flow platform sends the Plan use end notice to the sales channel, with flow platform as the calling party and external sales channel application system as the called party.
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	N003- Plan use end notice
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+subOrderId
+String	Y	Sub-order ID of flow platform
+channelSubOrderId
+String	Y	Sub-order ID of sales channel
+iccid
+String	Y	Card number
+endTime
+String	Y	Plan use end time
+Request Example
+Copy
+{
+  "tradeType": "N003",
+  "tradeTime": "2017-02-10 11:11:11",
+  "tradeData": [
+    {
+      "subOrderId": "13131313132",
+      "channelOrderId": "2873987483291",
+      "iccid": "89860012017310000001",
+      "endTime": "2018-04-13 12:12:12"
+    },
+    {
+      "subOrderId": "13131313133",
+      "channelOrderId": "2873987483292",
+      "iccid": "89860012017310000003",
+      "endTime": "2018-04-09 12:12:12"
+    }
+  ]
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success"
+}
+
+POST
+N004-auditing notice
+The flow platform sends order delivery notice to the sale channel, with flow platform as the calling party And the Flow platform will send a audit notice to sale channel
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	N004- auditing notice
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+afterSaleId
+String	Y	after sale id
+auditStatus
+String	Y	after sale state:1.success, 2.false
+auditOpinion
+String	N	the suggest of after sale
+Request Example
+Copy
+{
+  "tradeType": "N004",
+  "tradeTime": "2017-02-10 11:11:11",
+  "tradeData": {
+    "afterSaleId": "2873987483290",
+    "auditStatus": "1",
+    "auditOpinion": "同意"
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success"
+}
+
+POST
+N005-Refund notice
+The flow platform sends order delivery notice to the sale channel, with flow platform as the calling party And if the Flow platform agree the apply , it will send the refund notice to the sales channel
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	N005- Refund notice
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+afterSaleId
+String	Y	after sale id
+refundState
+String	Y	after sale state:1.success, 2.false
+refundOpinion
+String	N	the suggest of after sale
+Request Example
+Copy
+{
+  "tradeType": "N005",
+  "tradeTime": "2017-02-10 11:11:11",
+  "tradeData": {
+    "afterSaleId": "2873987483290",
+    "refundState": "1",
+    "refundOpinion": "同意"
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success"
+}
+
+POST
+N006-Commodity information modify notice
+The flow platform sends order delivery notice to the sale channel
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	N006- commodity information modify notice
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+skuId
+String	Y	Commodity ID
+name
+String	Y	Commodity name
+type
+String	Y	Commodity type: 110- self-selected data plan; 111- fixed data plan; 210- single-time card; 211- multi-time card; 212- hard card; 220- MIFI sales; 221- MIFI leasing; 311- hard card + flow; 3101- single-time card + self-selected data plan; 3102- single-time card + fixed data plan; 3103- multi-time card + self-selected data plan; 3104- multi-time card + self-selected data plan; 3201- MIFI sales + self-selected data plan; 3202- MIFI sales + fixed data plan 3211- MIFI leasing + self-selected data plan; 3212- MIFI sales + fixed data plan.
+days
+String	N	Number of days (day)
+capacity
+String	N	Data data plan size (KB)
+highFlowSize
+String	N	High flow size (KB/day)
+limitFlowSpeed
+String	N	Limit flow speed (kbps)
+hotspotSupport
+String	N	Hotspot support: 0- not support; 1- support
+country
+Array	N	Country
+└
+mcc
+String	Y	Country code
+└
+name
+String	Y	Country name
+└
+apn
+String	Y	Apn information
+└
+apnUsername
+String	N	Apn username
+└
+apnPassword
+String	N	Apn password
+└
+apnType
+String	N	Apn set type: 0-No setting required 1-No setting required
+└
+authenticationType
+String	N	Authentication type
+└
+apnTypeDesc
+String	N	Apn type
+└
+operatorInfo
+Array	Y	Operator infor
+└
+operator
+String	Y	Network operator
+└
+network
+String	Y	Network standard
+└
+priority
+String	Y	priority
+apn
+String	N	Apn information
+operatorInfo
+String	N	Network operator and network type information
+validityPeroid
+String	N	Validity peroid
+desc
+String	Y	Commodity description
+Request Example
+Copy
+{
+  "tradeType": "N006",
+  "tradeTime": "2017-02-10 11:11:11",
+  "tradeData": [
+    {
+      "skuId": "1090",
+      "name": "香港-4G-1 天-200M",
+      "type": "110",
+      "days": "1",
+      "capacity": "",
+      "highFlowSize": "20000",
+      "limitFlowSpeed": "128",
+      "hotspotSupport": "1",
+      "country": [
+        {
+          "mcc": "HK",
+          "name": "香港",
+          "apn": "3gnet",
+          "apnUsername": "",
+          "apnPassword": "",
+          "operatorInfo": [
+            {
+              "operator": "cuhk",
+              "network": "4G",
+              "priority": "1"
+            }
+          ]
+        }
+      ],
+      "apn": "",
+      "operatorInfo": "",
+      "desc": "香港 1 天包，每天高速流量 200MB，降速 128kbps 后不限流量"
+    }
+  ]
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success"
+}
+
+POST
+N009-ESIM QR Code Notice
+eSIM Order
+The flow platform sends order delivery notice to the sale channel
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	N009-ESIM qr code notice
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+orderId
+String	Y	Main order ID of flow platform
+channelOrderId
+String	Y	Main order ID of sales channel
+subOrderList
+Array	Y	Sub-order set
+Request Example
+Copy
+{
+  "tradeType": "N009",
+  "tradeTime": "2020-02-25 16:56:37",
+  "tradeData": {
+    "orderId": "13131313131",
+    "channelOrderId": "13131",
+    "subOrderList": [
+      {
+        "subOrderId": "13131313132",
+        "channelSubOrderId": "131",
+        "uid": "18500000085",
+        "iccid": "89860012018500000085",
+        "qrCodeContent": "LPA:1$SECSMSMINIAPP.EASTCOMPEACE.COM$2C13942911FF452AB45E9E99A5D444A1",
+        "apn": "emov",
+        "pin": "1234",
+        "puk": "55026381",
+        "msisdn": "",
+        "validTime": "2023-09-23 17:58:07",
+        "rechargeableESIM": "0"
+      }
+    ]
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success"
+}
+
+POST
+N010-ESIM Email Send Notice
+The flow platform sends order delivery notice to the sale channel
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	N010-ESIM email send notice
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+orderId
+String	Y	Main order ID of flow platform
+channelOrderId
+String	Y	Main order ID of sales channel
+Request Example
+Copy
+{
+  "tradeType": "N010",
+  "tradeTime": "2020-02-25 16:56:37",
+  "tradeData": {
+    "orderId": "13131313131",
+    "channelOrderId": "13131"
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success"
+}
+
+POST
+N012-ESIM Profile Status Notice
+The flow platform sends order delivery notice to the sale channel
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	N012-ESIM profile status notice
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+orderId
+String	Y	Main order ID of flow platform
+channelOrderId
+String	Y	Main order ID of sales channel
+subOrderList
+Array	Y	Sub-order set
+Request Example
+Copy
+{
+  "tradeType": "N012",
+  "tradeTime": "2020-02-25 16:56:37",
+  "tradeData": {
+    "orderId": "13131313131",
+    "channelOrderId": "13131",
+    "subOrderList": [
+      {
+        "subOrderId": "13131313132",
+        "channelSubOrderId": "131",
+        "uid": "18500000085",
+        "iccid": "89860012018500000085",
+        "profileStatus": 1
+      }
+    ]
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success"
+}
+
+POST
+N013-Recharge Order Result Notice
+The flow platform sends order delivery notice to the sale channel
+
+Request Parameters
+Parameter	Type	Required	Description
+tradeType
+String	Y	N013- Top-up order result notice
+tradeTime
+String	Y	Communication time stamp
+tradeData
+Object	Y	Definitions are shown in the table below
+orderId
+String	Y	Main order ID of flow platform
+channelOrderId
+String	Y	Main order ID of sales channel
+status
+String	Y	Order status: 0-Successful 1-Failed
+Request Example
+Copy
+{
+  "tradeType": "N013",
+  "tradeTime": "2020-02-25 16:56:37",
+  "tradeData": {
+    "orderId": "13131313131",
+    "channelOrderId": "13131",
+    "status": "0"
+  }
+}
+Response Fields
+Field	Type	Required	Description
+tradeCode
+String	Y	Interactive result error code, 1000 for success and all others for failure
+tradeMsg
+String	Y	Interactive result description
+Response Example
+Copy
+{
+  "tradeCode": "1000",
+  "tradeMsg": "success"
+}
