@@ -1,0 +1,19 @@
+🔑 CREDENCIALES DE PRUEBA PRECARGADAS
+
+Al activar el plugin, se configuran automáticamente:
+
+App Key: tttt
+App Secret: 2c61a2963fdc44348f14d18a369f49c1
+Entorno: TEST
+Sales Method: 5
+Language: 2
+
+API URL (Test): https://api-flow-ts.billionconnect.com/Flow/saler/2.0/invoke
+
+✅ No necesitas configurar nada, solo:
+1. Activar el plugin
+2. Ir a "BC eSIM"
+3. Click "Sincronizar"
+4. ¡Listo!
+
+Puedes cambiar las credenciales desde el panel si necesitas usar otras.
